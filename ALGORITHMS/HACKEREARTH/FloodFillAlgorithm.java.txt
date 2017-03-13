@@ -1,0 +1,54 @@
+
+//import for Scanner and other utility classes
+import java.util.*;
+
+class TestClass {
+	public static boolean canReach(int[][] arr, int[][] visited, int x1, int x2, int x3, int x4)
+	{
+	      if(x1 < 0 || x2 <0 || x1 > x3 || x2 > x4)
+	      return false;
+	      if(x1 == x3 && x2 == x4)
+	      return true;
+	      if(visited[x1][x2] == 1)
+	      return false;
+	      if(arr[x1][x2] == 0)
+	      return false;
+	      visited[x1][x2] = 1;
+	      
+	        if(canReach(arr, visited, x1+1, x2, x3, x4) == true)
+	          return true;
+	        if(canReach(arr, visited, x1, x2+1, x3, x4) == true)
+	          return true;
+	        if( x1-1 >= 0 && canReach(arr, visited, x1-1, x2, x3, x4) == true)
+	          return true;
+	        if( x2-1 >= 0 && canReach(arr, visited, x1, x2-1, x3, x4) == true)
+	          return true;
+	          
+	      
+	      
+	      return false;
+	}
+	
+    public static void main(String args[] ) throws Exception {
+        //Scanner
+        Scanner s = new Scanner(System.in);
+        int N = s.nextInt();
+        int M = s.nextInt();
+        int[][] arr = new int[N][M]; 
+        int[][] visited = new int[N][M];
+        for (int i = 0; i < N; i++) {
+        	for(int j=0; j < M; j++){
+        		arr[i][j] = s.nextInt();
+        	}
+        }
+         for (int i = 0; i < N; i++) {
+        	for(int j=0; j < M; j++){
+        		visited[i][j] = 0;
+        	}
+        }
+        if(canReach(arr, visited, 0, 0, N-1, M-1))
+        System.out.println("Yes");
+        else
+        System.out.println("No");
+    }
+}
